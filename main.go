@@ -1,10 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
 
 func main() {
-	fmt.Println("Hello World")
-	// 	fmt.Println("SAtu = ", 1)
-	// 	fmt.Println("Dua = ", 2)
-	// 	fmt.Println("Tiga koma lima = ", 3.5)
+	// session.SetMode(mgo.Monotonic, true)
+	// defer session.Close()
+	router := mux.NewRouter()
+	router.HandleFunc("/health", Health).Methods("GET")
+	router.HandleFunc("/todo", AddToDo).Methods("POST", "PUT")
+	log.Fatal(http.ListenAndServe(":8000", router))
 }
